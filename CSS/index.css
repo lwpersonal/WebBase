@@ -1,3 +1,4 @@
+
 .test-1 {
   display: list-item;
   background: pink;
@@ -7,4 +8,49 @@
   display: inline-table;
   width: 100px;
   background: pink;
+}
+
+.btn-3-2 {
+  width: 300px;
+}
+.btn-3-2 input {
+  white-space: normal;
+}
+
+.text-demo {
+  margin: 20px 0 0;
+  text-align: center;
+  width: 300px;
+  background: pink;
+}
+
+.text-demo p {
+  display: inline-block;
+  text-align: left;
+}
+
+
+.text-demo-2 {
+  width: 0;
+}
+
+.text-demo-3 {
+  width: 0px;
+}
+.text-demo-3::before {
+  content: '我 love 你';
+  outline: 1px solid #000;
+  color: rgba(0,0,0,0);
+}
+
+.demo-2-7 {
+  padding: 0;
+  white-space: nowrap;
+}
+.demo-2-7 div{
+  width: 100px;
+  height: 50px;
+  display: inline-block;
+  background: pink;
+  margin: 2px;
 }
