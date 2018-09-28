@@ -54,3 +54,11 @@
   background: pink;
   margin: 2px;
 }
+
+.demo-3-29 {
+  background: red;
+}
+
+.demo-3-29 span, .demo-3-29 p {
+  display: inline-block;
+}

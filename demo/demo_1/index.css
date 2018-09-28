@@ -1,0 +1,31 @@
+.wrap {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: rgba(0,0,0,0.05);
+}
+/**/
+.container {
+  position: relative;
+  min-height: 300px;
+}
+
+.box {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background: pink;
+}
+.box:first-child {
+  left: 0;
+}
+.box:last-child {
+  right: 0;
+}
+
+.text {
+  outline: none;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.7);
+}
