@@ -2,7 +2,7 @@
  * @Author: WenJW
  * @Date: 2018-09-27 21:55:58
  * @Last Modified by: WenJW
- * @Last Modified time: 2018-09-28 23:49:00
+ * @Last Modified time: 2018-09-30 16:40:33
  * @description
  */
 
@@ -18,12 +18,13 @@
     return el
   }
   function getTextArr() {
-    var str = options.textEl.value
-    console.log(str)
-    var resArr = str
-      // .replace(/({)\n/g, '$1\\n')
-      // .replace(/\n(})/g, '\\n$1')
-      .split(/\n/g)
+    console.log(options.content)
+    var resArr = options.content
+      // .replace(/({) *\n/g, '$1\\n')
+      // .replace(/\n *(})/g, '\\n$1')
+      .replace(/\{([^\{\}]+)\}/g, '{$1}\\n$')
+      .replace(/\/\*([^\/]+)\*\//g, '\/\*$1\*\/\\n$')
+      .split(/\\n\$/g)
     return resArr
   }
   function handleCode(code) {}
@@ -31,6 +32,20 @@
     var len = str.length
     
   }
+  function writeFn(el, text) {
+    return el.appendData(text)
+  }
+  function commentHandle(comment) {
+    var el = createNode('div', 'comment')
+    var index = 0
+    function writeFn(el, text) {
+      if(){}
+      return el.appendData(text)
+    }
+    writeFn(el, comment[index])
+    
+  }
+  function styleHandle(style) {}
   function typeCheckout(str) {
     var el
     if(/\/\*/g.test(str)) {
@@ -38,12 +53,12 @@
       options.el.append(el)
       
     }
+  if(/\/\*[\w\W]+\*\//g.exec(str)) {}
   }
-  function writeText(arr) {
+  function startFn(arr) {
     console.log(arr)
-    var root
     arr.map(function(item, index) {
-      root = typeCheckout(item)
+      typeCheckout(item)
       root.appendChild()
       handleText(item)
     })
@@ -51,7 +66,7 @@
   
   Func.prototype.init = function(config) {}
   Func.prototype.start = function(config) {
-    writeText(getTextArr())
+    startFn(getTextArr())
   }
   
   win.Func = Func

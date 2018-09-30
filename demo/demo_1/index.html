@@ -32,21 +32,29 @@
  * 3
  * 开始
  * 今天是2018年9月27日。
-**/ 
-body {
+**/
+body { 
   background: orange;
   color: red;
 
 }
-h1 {
+h1 { 
   color: red;
-}
+ }
+/**
+ * 1
+ * 2
+ * 3
+ * 开始
+ * 今天是2018年9月27日。
+**/
 `
+
       document.getElementsByClassName('text')[0].value = str
       function main() {
         var func = new Func({
           el: document.getElementsByClassName('js_demo_show')[0],
-          textEl: document.getElementsByClassName('text')[0],
+          content: str,
           time: 100,
           timeOut: 1000
         })
