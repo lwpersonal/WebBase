@@ -22,8 +22,8 @@
   <script>
 
     /*
-        暂停位置 ，。……！？.,!?
-      　{} 代码内容，必须换行显示。{\n
+      暂停位置 ，。……！？.,!?
+    　{} 代码内容，必须换行显示。{\n
     */
     ;(function(){
       var str = `/**
@@ -42,20 +42,24 @@ h1 {
   color: red;
  }
 /**
- * 1
- * 2
- * 3
  * 开始
+ * lkjsdlkadj
+ * kjshdkaj
+ * hhdjf
  * 今天是2018年9月27日。
 **/
+h2 { 
+  color: blue;
+ }
 `
-
+      var pauseVal = [ ',', '.', '!', '?', '。', '，', '！']
+      // ，。……！？.,!?
       document.getElementsByClassName('text')[0].value = str
       function main() {
         var func = new Func({
           el: document.getElementsByClassName('js_demo_show')[0],
           content: str,
-          time: 100,
+          time: 50,
           timeOut: 1000
         })
         func.start()
