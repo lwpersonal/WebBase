@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html style="height: 100%;" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Svg practice</title>
+  <link rel="stylesheet" href="./show.css">
+</head>
+<body style="height: 100%;">
+
+  <div class="wrap">
+
+    <ul class="svg" data-svg></ul>
+  </div>
+  
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/lodash/3.5.0/lodash.js"></script>
+  <script src="./svg.js"></script>
+  <script>
+    const data = [
+      {
+        h: { title: '简单形状', id: 'simple' },
+        title: 'rect-矩形',
+        text: '绘制一个矩形',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <rect x="50" y="0" rx="10" ry="20" width="100" height="80"
+  style="fill:red;stroke-width:1;stroke:rgb(0,0,0)" fill-opacity="0.5" opacity="0.8" stroke-opacity="0.4"/>
+</svg>`
+        },
+      },
+      {
+        title: 'circle-圆',
+        text: '绘制一个圆形，cx,cy 定义圆心; r 定义半径',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <circle cx="100" cy="50" r="40" stroke="black"
+  stroke-width="2" fill="red"/>
+</svg>`
+        },
+      },
+      {
+        title: 'ellipse-椭圆',
+        text: '绘制一个椭圆，cx,cy 定义圆心; rx,ry 定义长短轴',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <ellipse cx="100" cy="50" rx="50" ry="30"
+  style="fill:yellow;stroke:purple;stroke-width:2"/>
+</svg>`
+        },
+      },
+      {
+        title: 'line-线条',
+        text: '绘制一条直线，x1,y1 定义起点; x2,y2 定义终点',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <line x1="0" y1="0" x2="200" y2="100"
+  style="stroke:rgb(255,0,0);stroke-width:5"/>
+</svg>`
+        },
+      },
+      {
+        title: 'polygon-多边形',
+        text: '绘制多边形, points 多边形各个顶点;fill-rule:nonzero(非0规则,0为外部) | evenodd(奇内偶外);',
+        render: {
+          sta: true,
+          // evenodd, nonzero
+          html: `<svg width="200" height="200" viewBox="0 0 200 200">
+  <polygon points="100,10 40,180 190,60 10,60 160,180"
+  style="fill:orange;stroke:purple;stroke-width:5;fill-rule:evenodd;" />
+</svg>`
+        },
+      },
+      {
+        title: 'polyline-曲线',
+        prompt: '',
+        text: '',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <Polyline points="0,0 40,40 40,80 80,80 80,40 100,100 120,70" style="fill:orange;stroke:red;stroke-width:4" />
+</svg>`
+        },
+      },
+      {
+        title: 'text-文本',
+        prompt: '',
+        text: '',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <text x="0" y="15" fill="red" transform="rotate(30 20,40)">I love You</text>
+</svg>`
+        },
+      },
+      {
+        h: { title: 'path-线型', id: 'path' },
+        title: 'M/m',
+        prompt: 'M x y',
+        text: '定义起始点，没什么效果',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <path d="M 10 10"/>
+</svg>`
+        },
+      },
+      {
+        title: 'L/l',
+        prompt: 'L x y',
+        text: '画线段，移动到',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <path d="M 10 10 L 10 50 L 50 50 L 100 80 M 100 100 L 180 50" stroke="#000" fill="none"/>
+</svg>`
+        },
+      },
+      {
+        title: 'H/h',
+        prompt: 'H x',
+        text: '画一条横线',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <path d="M 50 50 H 150" stroke="#000" fill="none"/>
+</svg>`
+        },
+      },
+      {
+        title: 'V/v',
+        prompt: 'V y',
+        text: '画一条竖线',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <path d="M 100 10 v 120" stroke="#000" fill="none"/>
+</svg>`
+        },
+      },
+      {
+        title: 'Z/z',
+        prompt: 'Z',
+        text: '标示结束，并且和开始的点连起来',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <path d="m 10 10  h 10 v 10 l 50 0 v 50 z" stroke="#000" fill="orange" stroke-width="3"/>
+</svg>`
+        },
+      },
+      {
+        h: { title: '曲线', id: 'curve' },
+        title: 'C/c',
+        prompt: 'C x1 y1, x2 y2, x y',
+        text: '这是正统的贝塞尔曲线，需要 4 个参考点，所以 C/c 需要定义三个参考点（M/m 起始点）',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <path d="M10 10 C 100 100, 150 100, 150 10" stroke="#000" fill="transparent"/>
+</svg>`
+        },
+      },
+      {
+        title: 'S/s',
+        prompt: 'S x2 y2, x y',
+        text: '该标识符实际上使用来表示一个反射贝塞尔，即在原有贝塞尔上再加一段贝塞尔曲线，所以 S/s 一般和 C/c 一起使用',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <path d="M10 50 C 40 10, 60 10, 90 50 S 150 100, 180 50" stroke="#000" fill="transparent"/>
+</svg>`
+        },
+      },
+      {
+        title: 'Q/q',
+        prompt: 'Q x1 y1, x y',
+        text: '该标识符是用来定义二次贝塞尔曲线，该曲线相当于上面传统贝塞尔简化版，它只需要定义三个点，即可绘制一个贝塞尔曲线',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <path d="m 10 10  q 100 150, 180 10" stroke="#000" fill="transparent"/>
+</svg>`
+        },
+      },
+      {
+        title: 'T/t',
+        prompt: 'T x y',
+        text: '该标识符和 S 差不多，也是一个贝塞尔曲线的延长，会根据 Q/q 的控制点和终点对称一个控制点，所以只需要定义一个终点即可。注意 C/SS，Q/T 这样搭配使用，且 T 的距离是相对于 Q 的终点绘制的',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <path d="m 10 10  q 50 100, 100 30 t 80 50" stroke="#000" fill="transparent"/>
+</svg>`
+        },
+      },
+      {
+        h: { title: '弧线', id: 'arc' },
+        title: 'A/a',
+        prompt: 'A rx ry x-axis-rotation large-arc-flag sweep-flag x y',
+        text: 'rx,ry: 代表的就是长轴短轴; x,y: 代表的是弧长的结束点。开始点就是上一个命令的终点; x-axis-rotation: x 轴的旋转角度, 顺时针为正。large-arc-flag[0,1]: 表示取大弧还是小弧。sweep-flag[0,1]: 取顺时针的弧，还是逆时针的弧长。参考点是以起始点开始的。',
+        render: {
+          sta: true,
+          html: `<svg width="500" height="300" viewBox="0 0 500 300">
+  <path d="m 100 100 a 200 100 0 1 0 100 100" stroke="#000" fill="transparent"/>
+</svg>`
+        },
+      },
+      {
+        h: { title: '其他标签', id: 'other' },
+        title: 'clipPath-裁剪',
+        text: '能限制哪些地方可见，哪些地方不可见。<clipPath>标记指定的区域之外的所有内容都不会被显示(图像不会被绘制出来)。剪切路径是用clipPath元素定义的，属性clip-path可用来引用剪切路径。默认情况下，一个形状，其被剪切掉的区域（不可见的区域）是不响应鼠标事件的。',
+        render: {
+          sta: true,
+          html: `<svg width="120" height="120"
+  viewPort="0 0 120 120" version="1.1"
+  xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <clipPath id="myClip">
+      <circle cx="30" cy="30" r="20"/>
+      <circle cx="100" cy="70" r="30"/>
+    </clipPath>
+  </defs>
+  
+  <rect x="10" y="10" width="100" height="100"
+    clip-path="url(#myClip)" fill='red' />
+    
+</svg>`
+        },
+      },
+      {
+        title: 'g-分组',
+        text: 'g 标记就是\'group\'的简写，是用来分组用的，它能把多个元素放在一组里，对 g 标记实施的样式和渲染会作用到这个分组内的所有元素上。组内的所有元素都会继承 g 标记上的所有属性。用<g>定义的分组还可以使用 use 进行复制使用。',
+        render: {
+          sta: true,
+        html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <g fill="blue" id="myClip">
+    <circle cx="30" cy="30" r="20"/>
+    <circle cx="100" cy="70" r="30"/>
+  </g>
+</svg>`
+        },
+      },
+      {
+        title: 'use-深度复用',
+        text: 'use 标记的作用是能从 SVG 文档内部取出一个节点，克隆它，并把它输出到别处。跟\'引用\'很相似，但它是深度克隆。注意：IE11 不支持引用外部的 svg 文件，所以如果要兼容 IE11 需要把要 use 引用的 svg 写入同一个 Html 中。',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="200" viewBox='0 0 60 60'>
+  <style>
+    .classA { fill:red }
+  </style>
+  <defs>
+    <g id="Port">
+      <circle style="fill:inherit" r="5"/>
+    </g>
+  </defs>
+
+  <use x="20" y="10" xlink:href="#Port" />
+  <use x="20" y="30" xlink:href="#Port" class="classA"/>
+  <use x="20" y="50" xlink:href="#Port" style="fill:blue"/>
+</svg>`
+        },
+      },
+      {
+        title: 'defs-模板',
+        text: 'defs 元素用于预定义一个元素使其能够在 SVG 图像中重复使用，和 g 结合使用。',
+        render: {
+          sta: true,
+          html: `<svg width="300" height="300" viewport="0 0 300 300">
+  <defs>
+    <g id="shape">
+        <rect x="25" y="50" width="50" height="50" />
+        <circle cx="25" cy="50" r="50" />
+        <circle fill="orange" cx="25" cy="50" r="5" />
+    </g>
+  </defs>
+
+  <use xlink:href="#shape" x="50" y="25" />
+  <use xlink:href="#shape" x="200" y="25" />
+  <use xlink:href="#shape" x="50" y="150" /> 
+</svg>`
+        },
+      },
+      {
+        title: 'symbol-模板',
+        text: 'symbol 标记的作用是定义一个图像模板，它的作用相当于 g 和 defs 的结合，你可以使用 use 标记实例化它，然后在 SVG 文档中反复使用，这种用法非常的高效。symbol 本身不会输出任何图像，只有使用 use 实例化后才会显示。',
+        render: {
+          sta: true,
+          html: `<svg viewBox="0 0 150 150" height='300'>
+  <symbol id="sym01" viewBox="0 0 150 110">
+    <circle cx="50" cy="50" r="40" stroke-width="8" stroke="red" fill="red"/>
+    <circle cx="90" cy="60" r="40" stroke-width="8" stroke="green" fill="white"/>
+  </symbol>
+
+  <use xlink:href="#sym01"
+    x="0" y="0" width="100" height="50"/>
+  <use xlink:href="#sym01"
+    x="0" y="50" width="75" height="38"/>
+  <use xlink:href="#sym01"
+    x="0" y="100" width="50" height="25"/>
+</svg>`
+        },
+      },
+      {
+        h: { title: '文本', id: 'text' },
+        title: 'text-文本',
+        text: 'text 元素用于定义文本。',
+        render: {
+          sta: true,
+        html: `<svg width="200" height="400">
+  <text x="10" y="1" fill="red">hello world !</text>
+  <text x="10" y="25" fill="blue">hello world !</text>
+  <text x="0" y="45" fill="red" 
+transform="rotate(30 20,40)">hello world !</text>
+  <text x="10" y="105" style="fill:red;">这里有几行文字：
+    <tspan x="10" y="125">这是第一行文字。</tspan>
+    <tspan x="10" y="145">第二行文字在这里。</tspan>
+  </text>
+  <a xlink:href="http://lwpersonal.cn/other/draw/Canvas/SVG.html" 
+target="_blank">
+    <text x="10" y="170" fill="orange">超链接 !</text>
+  </a>
+  <defs>
+    <path id="path1" d="M10,190 a1,1 0 0,0 100,0" />
+  </defs>
+  <text x="10" y="190" style="fill:red;">
+    <textPath xlink:href="#path1">I love SVG I love SVG</textPath>
+  </text>
+  <text x="10 30 50" dx="-10 0 20" y="280 300 280" fill="red">hello world !</text>
+  <text x="10" y="330" letter-spacing="10" fill="red">hello world !</text>
+  <text x="100" y="360" text-anchor="middle" fill="red">hello world !</text>
+  <text x="100" y="390" text-anchor="end" fill="red">hello world !</text>
+</svg>`
+        },
+      },
+
+      {
+        h: { title: '动画', id: 'animate' },
+        title: 'set',
+        text: '设置，延迟更改属性',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <g> 
+    <rect x="10" y="10" width="30" height="30" fill="orange" >
+      <set attributeName="x" attributeType="XML" to="100" begin="3s" />
+    </rect>
+  </g>
+</svg>`
+        },
+      },
+      {
+        title: 'animate',
+        text: '单属性的动画过渡效果',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <g> 
+    <rect x="10" y="50" width="30" height="30" fill="orange" >
+      <animate attributeName="x" from="10" to="60" begin="0s" dur="3s" repeatCount="indefinite" />
+    </rect>
+  </g>
+</svg>`
+        },
+      },
+      {
+        title: 'animateColor',
+        text: '颜色的动画过渡效果，animate 可以实现相同效果，已废弃',
+        render: {
+          sta: false,
+          html: ``
+        },
+      },
+      {
+        title: 'animateTransform',
+        text: '与 css 的效果类似',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <g> 
+    <rect x="10" y="10" width="30" height="30" fill="orange" >
+      <animateTransform attributeName="transform" begin="0s" dur="3s"  type="scale" from="1" to="1.5" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>`
+        },
+      },
+      {
+        title: 'animateMotion',
+        text: '可以让SVG各种图形沿着特定的path路径运动',
+        render: {
+          sta: true,
+          html: `<svg width="400" height="200" viewBox="0 0 400 200">
+  <g> 
+    <rect x="10" y="10" width="30" height="30" fill="orange" >
+      <animateMotion path="M10,10 q100,120 120,20 q140,-50 160,0" begin="0s" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <path d="M10,10 q100,120 120,20 q140,-50 160,0" stroke="#cd0000" stroke-width="2" fill="none" />
+  </g>
+</svg>`
+        },
+      },
+      {
+        title: 'animateMotion',
+        text: '更改运动行为',
+        render: {
+          sta: true,
+        html: `<svg width="400" height="200" viewBox="0 0 400 200">
+  <g> 
+    <rect x="10" y="10" width="30" height="30" fill="orange" >
+      <animateMotion path="M10,10 q100,120 120,20 q140,-50 160,0" begin="0s" dur="3s" rotate="auto" repeatCount="indefinite"/>
+    </rect>
+    <path d="M10,10 q100,120 120,20 q140,-50 160,0" stroke="#cd0000" stroke-width="2" fill="none" />
+  </g>
+</svg>`
+        },
+      },
+      {
+        title: 'animate',
+        text: '多个动画过渡',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <g> 
+    <rect x="10" y="50" width="30" height="30" fill="orange" >
+      <animate attributeName="x" from="10" to="60" begin="0s" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" from="1" to="0" begin="0s" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="fill" from="orange" to="red" begin="0s" dur="10s" repeatCount="1" />
+    </rect>
+  </g>
+</svg>`
+        },
+      },
+      {
+        h: { title: 'animation 参数', id: 'animate2' },
+        title: 'attributeName ',
+        prompt: 'attributeName = "attributeName"',
+        text: '要变化的元素属性名称，① 可以是元素直接暴露的属性，例如，rect 元素上的 x, y 或者 fill; ② 可以是 CSS 属性。例如，透明度 opacity ',
+        render: {
+          sta: false,
+          html: ``
+        },
+      },
+      {
+        title: ' attributeType = "CSS | XML | auto"',
+        text: 'attributeType 支持三个固定参数，CSS/XML/auto 。 用来表明 attributeName 属性值的列 表。x, y 以及 transform 就属于 XML , opacity 就属于 CSS 。 auto 为默认值，自动判别的意思（实际上是先当成 CSS 处理，如果发现不认识，直接 XML 类别处理）。因此，如果你不确信某属性是 XML 类别还是 CSS 类别的时候，建议不设置 attributeType 值，直接让浏览器自己去判断，几乎无差错。',
+        render: {
+          sta: false,
+          html: ``
+        },
+      },
+      {
+        title: 'from, to, by, values',
+        text: '单属性的动画过渡效果',
+        render: {
+          sta: true,
+          html: `<svg width="200" height="100" viewBox="0 0 200 100">
+  <g> 
+    <rect x="10" y="50" width="30" height="30" fill="orange" >
+      <animate attributeName="x" from="10" to="60" begin="0s" dur="3s" repeatCount="indefinite" />
+    </rect>
+  </g>
+</svg>`
+        },
+      },
+    ]
+
+
+
+
+    const main = () => {
+      const svg = new Svg({
+        el: $('[data-svg]')[0],
+        data: data
+      })
+    }
+
+    main()
+  </script>
+</body>
+</html>

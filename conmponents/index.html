@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #citySelect {
+      width: 100px;
+    }
+    .block {
+      height: 10px;
+    }
+    .page-init {
+      cursor: pointer;
+      width: 100px;
+      margin: 30px auto 0;
+      text-align: center;
+      line-height: 40px;
+      border-radius: 4px;
+      background: orange;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      padding: 40px;
+      width: 800px;
+      margin: 0 auto;
+    }
+    .container>div {
+      flex: 1;
+    }
+    .box {
+      margin: 20px 0;
+    }
+    label {
+      vertical-align: middle;
+    }
+    .introduce-label {
+      vertical-align: top;
+    }
+    .card {
+      padding: 15px;
+      border-radius: 4px;
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    }
+    .card>h3 {
+      text-align: center;
+    }
+  </style>
+  <link rel="stylesheet" href="animate.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="left-box">
+      <h3 title="完善您的用户信息">完善您的用户信息</h3>
+      <form id="form-1" novalidate="novalidate">
+        <div class="box">
+          <label for="name" >昵称：</label>
+          <input type="text" id="name" placeholder="昵称"/>
+        </div>
+        
+        <div class="box">
+          <label for="radio1">性别：</label>
+          <input type="radio" checked id="radio1" name="type" value="boy">
+          <label for="radio1" >男</label>
+          <input type="radio" id="radio2" name="type" value="girl">
+          <label for="radio2" >女</label>
+        </div>
+        
+        
+        <div class="box">
+          <label for="email" >邮箱：</label>
+          <input type="email" id="email" name="email" required placeholder="邮箱" id="">
+        </div>
+
+        <div class="box">
+          <label for="select">城市：</label>
+          <select name="" id="select">
+            <option value="">选择</option>
+            <option selected value="北京0">北京</option>
+            <option value="上海0">上海</option>
+            <option value="杭州0">杭州</option>
+          </select>
+        </div>
+        
+        
+        <div class="box">
+          <label class="introduce-label" for="introduce" >个性签名：</label>
+          <textarea name="" id="introduce" placeholder="个性签名" cols="30" rows="4"></textarea>
+        </div>
+        
+        <p title="注意事项：xxxxxxxxxxx">用户须知：xxxxxxxxxxx</p>
+        <!-- <input type="submit" value="更新名片"> -->
+      </form>
+      <button data-btn id="btn">更新名片</button>
+    </div>
+    <div class="right-box">
+      <div class="card">
+        <h3>个人名片</h3>
+        <p>昵称：<span class="js_name"></span></p>
+        <p>姓别：<span class="js_sex"></span></p>
+        <p>地址：<span class="js_city"></span></p>
+        <p>邮箱：<span class="js_email"></span></p>
+        <p>签名：<span class="js_introduce"></span></p>
+      </div>
+    </div>
+  </div>
+  <div class="page-init">初始化</div>
+
+
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="./sea.js"></script>
+  <script>
+    function init () {
+      var style2 = document.createElement('link')
+      style2.rel = 'stylesheet'
+      style2.href = 'index.css'
+      document.getElementsByTagName('head')[0].appendChild(style2)
+      
+      $('#citySelect').on('click', function() {
+        console.log('sdsds')
+      })
+      // 加载JS
+      seajs.use([
+          'common/input',
+          'common/radio',
+          'common/tip',
+          'common/button',
+          'common/select'
+      ], function(Text, Radio, Tip, Button, select) {
+          Text.init()
+          Radio.init()
+          Tip.init()
+          Button.init()
+          select.init()
+      })
+      $(this).remove()
+    }
+    $('.page-init').on('click', init)
+
+
+
+
+    $('#radio1').on('click', function() {
+      console.log('sdsdsd')
+    })
+    $('#btn').click(function() {
+      $('.js_name').text($('#name').val())
+      $('.js_sex').text($('#radio2:checked')[0] ? $('#radio2').val() : $('#radio1').val())
+      $('.js_email').text($('#email').val())
+      $('.js_city').text($('#select').val())
+      $('.js_introduce').text($('#introduce').val())
+    })
+  </script>
+</body>
+</html>
