@@ -14,7 +14,7 @@
         
       </div>
       <div class="box">
-        <textarea class="text" name="" id="" cols="30" rows="10"></textarea>
+        <textarea class="text" name="" id="" cols="50" rows="20"></textarea>
       </div>
     </div>
   </div>
@@ -27,10 +27,10 @@
     */
     ;(function(){
       var str = `/**
- * 1
- * 2
- * 3
- * 开始
+ * 1.
+ * 2.
+ * 3.
+ * 开始.
  * 今天是2018年9月27日。
 **/
 body { 
@@ -53,14 +53,15 @@ h2 {
  }
 `
       var pauseVal = [ ',', '.', '!', '?', '。', '，', '！']
-      // ，。……！？.,!?
+
       document.getElementsByClassName('text')[0].value = str
       function main() {
         var func = new Func({
           el: document.getElementsByClassName('js_demo_show')[0],
           content: str,
           time: 50,
-          timeOut: 1000
+          timeOut: 1000,
+          pauseVal: pauseVal
         })
         func.start()
       }

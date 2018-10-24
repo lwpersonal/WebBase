@@ -2,7 +2,7 @@
  * @Author: WenJW
  * @Date: 2018-09-27 21:55:58
  * @Last Modified by: WenJW
- * @Last Modified time: 2018-10-08 18:58:19
+ * @Last Modified time: 2018-10-22 21:33:25
  * @description
  */
 
@@ -36,6 +36,16 @@
     options = config
     console.log(options.el)
     options.el.style.whiteSpace = 'pre-wrap'
+  }
+
+  // 延时处理
+  function pauseHandle(val) {
+    // 延时\正常\遇到空白字符，时间 0s
+    if(options.pauseVal.indexOf(val) > -1) {
+      return options.timeOut
+    } else if(/\s/.test(val)) {
+      return 0
+    } else { return options.time }
   }
 
   // 创建 html 标签
@@ -72,9 +82,10 @@
   }
 
   // 在页面书写代码，文本节点
-  function writeFn(el, text) {
+  function writeFn(el, text, nodeSta) {
     if(!text){ return }
-    return el.appendData(text)
+    if(nodeSta) { return el.append(text) }
+    else { return el.appendData(text) }
     // return el.append(text)
   }
 
@@ -82,12 +93,14 @@
   function commentHandle(comment, el, fn) {
     var len = comment.length,
       index = 0,
-      textEl = createTextNode(el)
+      textEl = createTextNode(el),
+      time = options.time
     function commentFn(text) {
       // 检查是否有断点
-      var time = options.time
-      // options.timeOut
+      console.log(time, 'time-wai')
       setTimeout(function() {
+        time = pauseHandle(text)
+        console.log(time, 'time-nei')
         writeFn(textEl, text)
         index++
         if(index < len) { return commentFn(comment[index]) }
@@ -96,19 +109,16 @@
     }
     commentFn(comment[0])
   }
-  // 样式处理
   function styleHandle(style, el, fn) {
     var len = style.length,
       index = 0,
       root = createNode('span', 'el-select'),
-      textEl = createTextNode(el)
+      textEl = createTextNode(root)
     el.append(root)
     function styleFn(text) {
-      // options.timeOut
-      var time, textIndex = style.indexOf(text)
+      var time = options.time,
+        textIndex = style.indexOf(text)
       setTimeout(function() {
-        // 检查是否是断点，是的话下一个字符延时
-        time = options.time
         if(text === '{' || text === ';') {
           textEl = createTextNode(el)
           writeFn(textEl, text)
@@ -120,15 +130,13 @@
           root = createNode('span', 'el-val')
           textEl = createTextNode(root)
         } else if(text === '}') {
+          textEl = createTextNode(el)
           writeFn(textEl, text)
           root = createNode('span', 'el-select')
           textEl = createTextNode(root)
-        } else if(/\s/g.test()) {
-          console.log('ssssdsf')
-          textEl = createTextNode(el)
-          writeFn(textEl, text)
+        } else if(/\s/g.test(text)) {
+          writeFn(el, text, true)
         } else {
-          console.log('sss')
           el.append(root)
           writeFn(textEl, text)
         }
@@ -143,9 +151,9 @@
   // 
   function typeCheckout(str, fn) {
     var el
+    str = str.replace(/^\n/, '')
     if(/\/\*/g.test(str)) {
       el = createNode('div', 'comment')
-      // var textEl = createTextNode(el)
       options.el.append(el)
       commentHandle(str, el, fn)
     } else if(/\{[\w\W]+\}/g.test(str)) {
@@ -169,11 +177,6 @@
       })
     }
     strArrHandle(arr[0])
-    // arr.map(function(item, index) {
-    //   typeCheckout(item)
-    //   // root.appendChild()
-    //   // handvarext(item)
-    // })
   }
   
   Func.prototype.init = function(config) {}

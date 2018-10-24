@@ -2,6 +2,7 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+  font-size: 0;
   background: rgba(0,0,0,0.05);
 }
 /**/
@@ -14,6 +15,7 @@
   position: absolute;
   width: 50%;
   height: 100%;
+  font-size: 14px;
   /* background: pink; */
 }
 .box:first-child {
@@ -28,4 +30,11 @@
   border-radius: 4px;
   background: transparent;
   border: 1px solid rgba(0,0,0,0.7);
+}
+
+.comment, .code {
+  /* display: inline-block; */
+}
+.el-attr, .el-val, .el-select {
+  font-size: 14px;
 }
