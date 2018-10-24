@@ -1,0 +1,65 @@
+* { 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  outline: none;
+  color: rgba(0,0,0,0.7);
+  font-size: 16px;
+}
+body { background: #000; }
+h3 { font-size: 20px; }
+
+.wrap {
+  width: 900px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* svg */
+.svg {
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
+  background: #fcfcfc;
+}
+.line-title {
+  padding: 20px 0 0 0;
+  font-size: 24px;
+  text-indent: -20px;
+}
+.svg-item {
+  padding: 0 20px;
+}
+.svg-item-title {
+  padding: 10px 0;
+}
+.svg-item-text {
+  line-height: 1.5;
+  text-indent: 1em;
+}
+.svg-item-prompt {
+  line-height: 2;
+  text-indent: 1em;
+}
+.svg-item-code {
+  padding: 5px;
+  box-shadow: 2px 5px 3px 0px rgba(94,93,102,0.1);
+  /* background: rgba(0,0,0,0.05); */
+}
+
+.svg-item-code-list {
+  line-height: 40px;
+  padding: 0 20px;
+}
+.svg-item-code-list:nth-of-type(odd){ background: rgba(0,0,0,0.06);}/*奇数行*/ 
+.svg-item-code-list:nth-of-type(even){ background: rgba(0,0,0,0.02);}/*偶数行 */
+
+.svg-item-show {
+  display: inline-block;
+  margin: 15px 0 0 0;
+  background: rgba(0,0,0,0.02);
+  box-shadow: 2px 5px 3px 0px rgba(94,93,102,0.1);
+}
+/Users/admin/Documents/Web/UIAndAnamited/Canvas /* 画布 */
