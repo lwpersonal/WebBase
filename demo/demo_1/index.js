@@ -2,7 +2,7 @@
  * @Author: WenJW
  * @Date: 2018-09-27 21:55:58
  * @Last Modified by: WenJW
- * @Last Modified time: 2018-10-22 21:33:25
+ * @Last Modified time: 2018-11-26 22:12:32
  * @description
  */
 
@@ -97,10 +97,8 @@
       time = options.time
     function commentFn(text) {
       // 检查是否有断点
-      console.log(time, 'time-wai')
       setTimeout(function() {
         time = pauseHandle(text)
-        console.log(time, 'time-nei')
         writeFn(textEl, text)
         index++
         if(index < len) { return commentFn(comment[index]) }
@@ -116,8 +114,8 @@
       textEl = createTextNode(root)
     el.append(root)
     function styleFn(text) {
-      var time = options.time,
-        textIndex = style.indexOf(text)
+      var textIndex = style.indexOf(text)
+      var time = options.time
       setTimeout(function() {
         if(text === '{' || text === ';') {
           textEl = createTextNode(el)
@@ -142,7 +140,21 @@
         }
         index++
         if(index < len) { return styleFn(style[index]) }
-        else { return fn() }
+        else {
+          // 将样式添加到 header style 中
+          var styleEl = document.head.getElementsByTagName('style')[0]
+          var styleNode
+          if(styleEl) {
+            styleNode = createTextNode(styleEl)
+            styleNode.appendData(style)
+          } else {
+            styleEl = doc.createElement('style')
+            doc.head.append(styleEl)
+            console.log(styleEl)
+            styleNode = createTextNode(styleEl)
+            styleNode.appendData(style)
+          }
+          return fn() }
       }, time)
     }
     styleFn(style[0])
