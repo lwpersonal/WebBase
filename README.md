@@ -2,7 +2,7 @@
 
  | Path | Description 
   -|-
-  CSS | CSS 大世界练习代码
+  CSS | CSS 世界练习代码
   UIAndAnamited | Canvas、SVG、three 等练习代码
   algorithm | 算法练习
   components | 组件封装练习
