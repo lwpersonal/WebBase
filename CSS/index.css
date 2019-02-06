@@ -1,4 +1,7 @@
-
+* {
+  margin: 0;
+  padding: 0;
+}
 .test-1 {
   display: list-item;
   background: pink;
