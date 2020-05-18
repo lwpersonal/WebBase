@@ -101,7 +101,7 @@
   const s2 = new Subscriber('add', 's2', p1)
   const s3 = new Subscriber('other', 's3', p1)
 
-  console.log('----------')
+  console.log('----------*')
   p1.setState({ count: 2 }, 'add')
   p1.setState({ count: 3 }, 'add')
   p1.setState({ count: 0 }, 'other')
