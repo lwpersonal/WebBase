@@ -2,6 +2,9 @@
   margin: 0;
   padding: 0;
 }
+body {
+  padding: 40px 0;
+}
 .test-1 {
   display: list-item;
   background: pink;
@@ -64,4 +67,433 @@
 
 .demo-3-29 span, .demo-3-29 p {
   display: inline-block;
+}
+
+/* content */
+.dot-wrap {
+  line-height: 21px;
+}
+.dot-wrap dot {
+  overflow: hidden;
+  display: inline-block;
+  height: 21px;
+  line-height: 21px;
+}
+.dot-wrap dot::before {
+  color: red;
+  display: block;
+  content: '...\a..\a.';
+  white-space: pre-wrap;
+  animation: dot 3s infinite step-start both;
+}
+@keyframes dot {
+  33% { transform: translateY(-42px) }
+  66% { transform: translateY(-21px) }
+}
+
+/* content - 计数器 */
+.reset {
+  padding: 0 0 0 15px;
+  counter-reset: name 0;
+  list-style: none;
+}
+.increment::before {
+  content: counters(name, '-') '. ';
+  counter-increment: name 1;
+}
+
+/* padding */
+.padding-one div, .padding-one a {
+  box-sizing: border-box;
+  color: #fff;
+}
+.padding-one .one {
+  width: 100px;
+  height: 100px;
+  padding: 0 60px;
+  background-color: blueviolet;
+}
+.padding-one .two {
+  width: 100px;
+  height: 100px;
+  padding: 60px 0;
+  background-color: blue;
+}
+
+.padding-two {
+  width: 200px;
+  margin: 200px 0 0;
+  background-color: greenyellow;
+}
+.padding-two span {
+  padding: 50%;
+  background-color: hotpink;
+}
+
+.padding-three {
+  margin: 100px 0 0;
+  padding: 0 0 0 40px;
+}
+
+.padding-four {}
+.padding-four .icon-menu {
+  display: inline-block;
+  width: 140px;
+  height: 10px;
+  padding: 35px 0;
+  border-top: 10px solid;
+  border-bottom: 10px solid;
+  background-color: currentColor;
+  background-clip: content-box;
+}
+
+.margin-box {
+  overflow: hidden;
+  font-size: 0;
+}
+
+.margin-box .box {
+  width: 50px;
+  height: 50px;
+  float: left;
+  background-color: cyan;
+}
+.margin-box img {
+  width: 50px;
+  height: 50px;
+  float: right;
+}
+.margin-box .box2 {
+  float: right;
+  width: 50px;
+  height: 50px;
+  background-color: cyan;
+}
+.margin-box .text {
+  word-break: break-all;
+  margin-left: 50px;
+  margin-right: 50px;
+  font-size: 14px;
+}
+
+/* 右浮动，图片DOM在后，和视觉表现一致 */
+.box-right-same > .full {
+  width: 100%;
+  float: left;
+}
+.box-right-same > .full > p {
+  margin-right: 140px;
+}
+.box-right-same > img {
+  float: left;
+  margin-left: -128px;
+}
+
+.height-box {
+  width: 100%;
+  overflow: hidden;
+}
+.height-box >div {
+  margin-bottom: -9999px;
+  padding-bottom: 9999px;
+}
+
+.height-box .left {
+  float: left;
+  width: 50%;
+  background-color: darkcyan;
+}
+.height-box .right {
+  width: 50%;
+  float: right;
+  background-color: darkorange;
+}
+
+/* line-height */
+
+.line-height-wrap {
+  margin-top: 10px;
+  font-family: simsun;
+  font-size: 80px;
+  line-height: 120px;
+  background-color: darkviolet;
+}
+
+.line-height-wrap span {
+  background-color: #fff;
+}
+
+.line-height-2 {
+  line-height: 20px;
+  background-color: deeppink;
+}
+
+.line-height-2 span {
+  /* display: inline-block; */
+  line-height: 180px;
+  background-color: gold;
+}
+
+/* vertical-align */
+.vertical-align {
+  line-height: 32px;
+  background-color: deeppink;
+  font-size: 20px;
+}
+
+.vertical-align span {
+  font-size: 20px;
+  background-color: gold;
+}
+
+.table-cell {
+  display: table-cell;
+  height: 120px;
+  vertical-align: middle;
+  background-color: forestgreen;
+}
+.table-cell div {
+  width: 50px;
+  height: 50px;
+  background-color: deepskyblue;
+}
+
+.inline-block-img {
+  border: 1px solid #000;
+}
+.inline-block-img span {
+  background-color: hotpink;
+}
+
+.inline-block-img img {
+  width: 50px;
+}
+
+.inline-block-img2 {
+  margin: 100px 0 0;
+}
+.inline-block-img2 img {
+  width: 50px;
+  margin-top: -9999px;
+}
+
+.base-line span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: hotpink;
+  /* margin: 10px 0; */
+}
+.base-line i {
+  background-color: hotpink;
+}
+
+.base-line span:nth-child(8), .base-line span:nth-child(7) {
+  overflow: visible;
+}
+
+.base-line span:nth-child(6), .base-line span:nth-child(5) {
+  overflow: auto;
+}
+
+.line-height-0 {
+  margin-top: 10px;
+  background-color: lightblue;
+}
+.line-height-0 span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 0;
+  background-color: indianred;
+}
+
+.text-justify {
+  text-align: justify;
+  background-color: lightgreen;
+  line-height: 0;
+}
+
+.text-justify img {
+  width: 30%;
+}
+.text-justify i {
+  display: inline-block;
+  width: 30%;
+  outline: thin solid #000;
+}
+
+.vertical-bottom {
+  margin-top: 40px;
+  background-color: lightpink;
+}
+.vertical-bottom img {
+  width: 100px;
+}
+.vertical-bottom img:last-child {
+  vertical-align: bottom;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  /* height: 100px; */
+  /* margin-top: 30px; */
+  /* font-size: 0; */
+  line-height: 0;
+  background-color: rgba(0,0,0,.6);
+  color: #fff;
+}
+.modal::after {
+  display: inline-block;
+  content: "x";
+  height: 100%;
+  width: 20px;
+  vertical-align: middle;
+  background-color: lightpink;
+}
+.modal .content {
+  display: inline-block;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.modal2 {
+  margin-top: 30px;
+  line-height: 0;
+  background-color: lightseagreen;
+}
+
+.modal2 div {
+  display: inline-block;
+}
+
+.modal2 div:last-child {
+  height: 100px;
+  vertical-align: middle;
+}
+
+.float-box {
+  margin: 20px 0 0;
+  background-color: magenta;
+}
+.float-box img {
+  float: left;
+  width: 100px;
+}
+.float-box img:nth-child(2) {
+  float: right;
+}
+
+.float-text {
+  margin: 0 120px;
+}
+
+/* overflow */
+.overflow-box {
+  height: 120px;
+  overflow: hidden;
+  border: solid;
+}
+.overflow-box .content {
+  height: 300px;
+  background-color: magenta;
+}
+
+.absolute-box {
+  margin-top: 20px;
+  position: relative;
+  height: 100px;
+}
+
+.absolute-box span {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: limegreen;
+}
+
+.absolute-box div {
+  width: 50%;
+}
+
+.absolute-box .ab {
+  width: 100%;
+}
+.absolute-box2 span {
+  background-color: gold;
+}
+
+.absolute-box2 i {
+  position: absolute;
+  background-color: limegreen;
+}
+
+.absolute-box3 {
+  width: 200px;
+}
+.absolute-box3 .item {
+}
+.absolute-box3 input {
+  width: 100%;
+  outline: 0;
+  border: 0;
+  border: solid rgba(0,0,0,.4);
+  background-color: #fafafa;
+  padding: 5px 10px;
+  box-sizing: border-box;
+}
+.absolute-box3 span {
+  position: absolute;
+}
+
+.over-box p {
+  position: absolute;
+  background-color: gold;
+  
+}
+.over-box2 p {
+  position: absolute;
+  background-color: gold;
+}
+.over-box {
+  overflow: hidden;
+}
+.over-box2 {
+  overflow: hidden;
+  position: relative;
+}
+/*  */
+.over-box3 {
+  height: 200px;
+  overflow: auto;
+  padding: 20px;
+  border: 1px solid goldenrod;
+}
+.over-box3 p {
+  width: 150%;
+}
+.over-box3 div {
+  position: absolute;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: greenyellow;
+}
+
+.abs-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.abs-box div {
+  height: 100%;
+  background-color: greenyellow;
+  opacity: .4;
 }

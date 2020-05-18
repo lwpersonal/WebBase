@@ -53,7 +53,65 @@
     }
     return f_1(1)
   }
-  console.log(fn_2(9))
+  // console.log(fn_2(9))
+
+  // 排序
+  // 直接插入排序
+  const px_fn = arr => {
+    let temp, i, j, len = arr.length
+    for (i = 1; i < len; i++) {
+      if (arr[i] < arr[i-1]) {
+        temp = arr[i]
+        arr[i] = arr[i-1]
+        for (j = i-2; arr[j] > temp && j >= 0; j--) {
+          arr[j+1] = arr[j]
+        }
+        arr[j+1] = temp
+      }
+    }
+    return arr
+  }
+  console.log(px_fn([4, 47, 6, 7, 2, 4, 1, 3, 4]))
+  
+  // 冒泡排序
+  const px_fn_mp = arr => {
+    let temp, i, j, len = arr.length, tag = 1
+    for (i = 0; i < len && tag; i ++) {
+      tag = 0
+      for (j = 0; j < len - i; j++) {
+        if (arr[j] > arr[j+1]) {
+          arr[j+1] = [arr[j], arr[j] = arr[j+1]][0]
+          tag = 1
+        }
+      }
+    }
+    return arr
+  }
+  console.log(px_fn_mp([47, 4, 6, 7, 2, 4, 1, 3, 4]))
+  console.log(px_fn_mp([1, 4, 6, 7, 2, 4, 1, 3, 4]))
+  console.log(px_fn_mp([6, 4, 1]))
+
+  // 简单选择排序
+  const px_fn_jdxz = arr => {
+    let temp, i, j, len = arr.length, k
+    for (i = 0; i < len - 1; i++) {
+      k = i
+      for (j = i + 1; j < len; j++) {
+        if (arr[k] > arr[j]) { k = j }
+      }
+      temp = arr[i]
+      arr[i] = arr[k]
+      arr[k] = temp
+    }
+    return arr
+  }
+  console.log(px_fn_jdxz([47, 4, 6, 7, 2, 4, 1, 3, 4]))
+
+  // 希尔排序
+  const px_fn_xe = arr => {
+    const array = [5, 2, 1]
+    let i, j, 
+  }
 
 }(document, window));
 

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+   <script>
+    //  观察者模式
+    // 主题
+    function Subject (state) {
+      this.state = state
+      this.observers = {}
+    }
+    Subject.prototype.getState = function() {
+      return this.state
+    }
+    Subject.prototype.setState = function(state) {
+      this.state = { ...this.state, ...state }
+      this.notify()
+    }
+    Subject.prototype.addObserver = function(key, observer) {
+      this.observers[key] = observer
+    }
+    Subject.prototype.removeObserver = function(key) {
+      delete this.observers[key]
+    }
+    Subject.prototype.notify = function() {
+      this.observers && Object.keys(this.observers).forEach(item => {
+        this.observers[item].update(this.state)
+      })
+    }
+    // 观察者
+    function Observer (name, key, subject) {
+      this.name = name
+      this.subject = subject
+      this.subject.addObserver(key, this)
+    }
+    Observer.prototype.update = function(state) {
+      console.log(`${this.name} is upDate , count: ${this.subject.state.count}`)
+      console.log(state)
+    }
+
+    const sub = new Subject({ count: 1 })
+    const obser1 = new Observer('o1', 'o1', sub)
+    const obser2 = new Observer('o2', 'o2', sub)
+    
+    sub.setState({ count: 2 })
+    sub.setState({ count: 3 })
+    sub.removeObserver('o2')
+    console.log(obser1.subject.getState())
+    sub.setState({ count: 4 })
+   </script>
+
+<script>
+  // 发布/订阅 模式
+
+  function Publisher (state) {
+    this.state = state
+    this.publishers = {
+      add: {},
+      other: {}
+    }
+  }
+  Publisher.prototype.getState = function() {
+    return this.state
+  }
+  Publisher.prototype.setState = function(state, event) {
+    this.state = { ...this.state, ...state }
+    this.notify(event)
+  }
+  Publisher.prototype.addSubscriber = function(key, publisher, event) {
+    if (!this.publishers[event]) {
+      throw new Error(`this event is now exit (event: ${event})`)
+    }
+    this.publishers[event][key] = publisher
+  }
+  Publisher.prototype.removeObserver = function(key, event) {
+    delete this.publishers[event][key]
+  }
+  Publisher.prototype.notify = function(event) {
+    this.publishers[event] && Object.keys(this.publishers[event]).forEach(item => {
+      this.publishers[event][item].update(this.state)
+    })
+  }
+  
+  function Subscriber (event, key, publisher) {
+    this.name = key
+    this.publisher = publisher
+    this.event = event
+    this.publisher.addSubscriber(key, this, event)
+  }
+  Subscriber.prototype.update = function(state) {
+    console.log(`${this.name} is upDate (${this.event}) , count: ${this.publisher.state.count}`)
+    console.log(state)
+  }
+
+  const p1 = new Publisher({ count: 1 })
+  const s1 = new Subscriber('add', 's1', p1)
+  const s2 = new Subscriber('add', 's2', p1)
+  const s3 = new Subscriber('other', 's3', p1)
+
+  console.log('----------')
+  p1.setState({ count: 2 }, 'add')
+  p1.setState({ count: 3 }, 'add')
+  p1.setState({ count: 0 }, 'other')
+
+ </script>
+</body>
+</html>

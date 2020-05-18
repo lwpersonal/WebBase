@@ -5,9 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Algorithm</title>
+  <style>
+    .box {
+      width: 100px;
+      margin: 10px;
+      padding: 10px;
+    }
+    .box1 {
+      position: relative;
+      top: 10px;
+      background-color: pink;
+    }
+    .box2 {
+      box-sizing: border-box;
+      background-color: aquamarine;
+    }
+  </style>
 </head>
 <body>
-  
+
+  <div class="box1 box">1</div>
+  <div class="box2 box">2</div>
+
+
+  <div style="z-index: 1;float: left;width: 200px;height: 100px;background: pink;"></div>
+  <div style="z-index: 0;float: left;width: 200px;height: 100px;background: blue;margin: 10px 0 0 -20px;"></div>
   <script src="./index.js"></script>
 </body>
 </html>
