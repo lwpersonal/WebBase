@@ -446,7 +446,53 @@
       }
       console.log(arr, arr[0], '---')
     }
-    run2(arr1)
+    // run2(arr1)
+
+    // 防抖
+    function debounce(fn, delay, option) {
+      let timer = null
+      const { leading } = option
+      return function() {
+        if (leading===true && timer===null) { fn() }
+        if(timer) {
+          clearTimeout(timer)
+          timer = null
+        }
+        
+        timer = setTimeout(function() {
+          fn()
+          timer && clearTimeout(timer)
+          timer = null
+        }, delay)
+      }
+    }
+    
+    // 节流
+    function throttle(fn, delay, option) {
+      let timer = null
+      const { leading } = option
+      let timeNum = leading === true ? 0 : new Date().getTime()
+      return function (...args) {
+        const _this = this
+        if ((timer === null) && leading===true && (new Date().getTime() - timeNum > delay)) {
+          fn()
+          timeNum = new Date().getTime()
+        }
+        if (timer) { return false }
+        timer = setTimeout(function() {
+          fn.call(_this, ...args)
+          clearTimeout(timer)
+          timer = null
+          timeNum = new Date().getTime()
+        }, delay)
+      }
+    }
+
+    const fn_1 = function() {
+      console.log(1)
+    }
+    const fn = throttle(fn_1, 3000, { leading: false })
+    document.addEventListener('scroll', fn)
 
   </script>
 </body>
