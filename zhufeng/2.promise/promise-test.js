@@ -6,7 +6,7 @@
  * 只有 Pending 可以转换状态
  */
 
-const Promise = require('./Promise');
+const Promise = require('./Promise2');
 
 
 new Promise(function(resolve, reject) {
@@ -14,12 +14,12 @@ new Promise(function(resolve, reject) {
     resolve(1);
   }, 10);
 }).then(res => console.log(res))
-.then(res => {
-  return new Promise(function(r) {
-    console.log('2:', res);
-      r(10);
-  });
-})
-.then(() => { throw new Error('wjw test') })
-.then(res => console.log('3: ', res))
-.catch(err => console.log('warn: -- ', err));
+// .then(res => {
+//   return new Promise(function(r) {
+//     console.log('2:', res);
+//       r(10);
+//   });
+// })
+// .then(() => { throw new Error('wjw test') })
+// .then(res => console.log('3: ', res))
+// .catch(err => console.log('warn: -- ', err));
