@@ -3,39 +3,73 @@ const CONST = {
   FulFilled: 'FulFilled',
   Rejected: 'Rejected'
 }
-function resolve(val) {
-  if (this.status === CONST.Pending) {
-    this.status = CONST.FulFilled;
-    this.value = val;
-  }
-};
-function reject(reason) {
-  if (this.status === CONST.Pending) {
-    this.status = CONST.Rejected;
-    this.reason = reason;
-  }
-};
 
 class Promise {
   constructor(executor) {
     this.status = CONST.Pending;
     this.value = undefined;
     this.reason = undefined;
+    this.onFulFilledCallbacks = [];
+    this.onRejectedCallbacks = [];
+    const resolve = (val) => {
+      if (this.status === CONST.Pending) {
+        this.status = CONST.FulFilled;
+        this.value = val;
+        this.onFulFilledCallbacks.forEach(fn => fn());
+      }
+    };
+    const reject = (reason) => {
+      if (this.status === CONST.Pending) {
+        this.status = CONST.Rejected;
+        this.reason = reason;
+        this.onRejectedCallbacks.forEach(fn => fn());
+      }
+    };
     try {
-      executor(resolve.bind(this), reject.bind(this));
+      executor(resolve, reject);
     } catch(err) {
       reject(err);
     }
-    console.log(11111)
     return this;
   }
   then(onFulFilled, onRejected) {
-    console.log('99', this);
-    if (this.status === CONST.FulFilled) {
-      onFulFilled(this.value);
-    } else if (this.status === CONST.Rejected) {
-      onRejected(this.reason);
-    }
+    const promise2 = new Promise((resolve, reject) => {
+      if (this.status === CONST.FulFilled) {
+        try {
+          const x = onFulFilled(this.value);
+          resolve(x);
+        } catch(err) {
+          reject(err);
+        }
+      } else if (this.status === CONST.Rejected) {
+        try {
+          const x = onRejected(this.reason);
+          resolve(x);
+        } catch(err) {
+          reject(err);
+        }
+      }
+      if (this.status === CONST.Pending) {
+        onFulFilled && this.onFulFilledCallbacks.push(() => {
+          try {
+            const x = onFulFilled(this.value);
+            resolve(x);
+          } catch(err) {
+            reject(err);
+          }
+        });
+        onRejected && this.onRejectedCallbacks.push(() => {
+          try {
+            const x = onRejected(this.reason);
+            resolve(x);
+          } catch(err) {
+            reject(err);
+          }
+        });
+      }
+    });
+    
+    return promise2;
   }
 }
 

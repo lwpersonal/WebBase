@@ -11,9 +11,21 @@ const Promise = require('./Promise2');
 
 new Promise(function(resolve, reject) {
   setTimeout(function() {
-    resolve(1);
+    resolve(198273);
   }, 10);
-}).then(res => console.log(res))
+  // resolve(1989);
+}).then(res => {
+  console.log('----0000 --- ', res);
+  throw new Error('error test 999');
+}, err => {
+  console.log('error9: ', err);
+  return 100;
+})
+.then(res => {
+  console.log('res--00: ', res)
+}, err => {
+  console.log(222, err);
+})
 // .then(res => {
 //   return new Promise(function(r) {
 //     console.log('2:', res);
