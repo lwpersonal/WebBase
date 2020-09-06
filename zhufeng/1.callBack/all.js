@@ -15,23 +15,24 @@ function after(callBack, delay) {
 
 let arr = [];
 function out(data) {
+  console.log('-----');
   console.log(arr);
 };
 const callBack = after(out, 2);
 
 
 function init1 () {
-  const fn2 = fs.readFile(path.resolve(__dirname, '../utils.js'), 'utf-8', function(err, data) {
+  const fn2 = fs.readFile(path.resolve(__dirname, './text2.txt'), 'utf-8', function(err, data) {
     arr.push(data);
     callBack(data);
   });
 
-  const fn1 = fs.readFile(path.resolve(__dirname, './test1.txt'), 'utf-8', function(err, data) {
+  const fn1 = fs.readFile(path.resolve(__dirname, './text1.txt'), 'utf-8', function(err, data) {
     arr.push(data);
     callBack(data);
   });
 }
-
+init1();
 // 第二种方法
 
 async function allAsync(arr) {
@@ -63,34 +64,34 @@ async function allAsync(arr) {
 
 // 订阅发布解决
 
-const events = {
-  arr: [],
-  data: [],
-  on(callBack) {
-    this.arr.push(callBack);
-  },
-  emit(data) {
-    this.data.push(data);
-    this.arr.forEach(fn => fn(this.data));
-  }
-}
-events.on(function(...args) {
-  console.log(...args);
-  console.log('------');
-})
+// const events = {
+//   arr: [],
+//   data: [],
+//   on(callBack) {
+//     this.arr.push(callBack);
+//   },
+//   emit(data) {
+//     this.data.push(data);
+//     this.arr.forEach(fn => fn(this.data));
+//   }
+// }
+// events.on(function(...args) {
+//   console.log(...args);
+//   console.log('------');
+// })
 
-const fn2 = () => {
-  const data = fs.readFile(path.resolve(__dirname, '../utils.js'), 'utf-8', function(err, data) {
-    events.emit(data);
-    return data;
-  });
-  console.log('data', data);
-};
+// const fn2 = () => {
+//   const data = fs.readFile(path.resolve(__dirname, '../utils.js'), 'utf-8', function(err, data) {
+//     events.emit(data);
+//     return data;
+//   });
+//   console.log('data', data);
+// };
 
-const fn1 = () => fs.readFile(path.resolve(__dirname, './test1.txt'), 'utf-8', function(err, data) {
-  events.emit(data);
-  return data;
-});
+// const fn1 = () => fs.readFile(path.resolve(__dirname, './test1.txt'), 'utf-8', function(err, data) {
+//   events.emit(data);
+//   return data;
+// });
 
-fn2();
-fn1();
+// fn2();
+// fn1();
