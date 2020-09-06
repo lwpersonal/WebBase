@@ -1,5 +1,4 @@
-const { builtinModules } = require("module");
-const { resolve } = require("path");
+
 
 
 const PENDING = 'Pending';
@@ -7,8 +6,8 @@ const FULFILLED = 'Fulfilled';
 const REJECTED = 'Rejected';
 const resolvePromise = (promise, x, resolve, reject) => {
   if (promise === x) {
-    // 返回本身，死循环
-    reject(new TypeError(' haining cycle detected for promise #<Promise>'));
+    // 返回本身，死循环op
+    reject(new TypeError('haining cycle detected for promise #<Promise>'));
   } else if ((typeof x === 'object' && x!==null) || typeof x === 'function') {
     // Promise
     try { // 防止改写 then 的 get 方法，在里面抛出错误
