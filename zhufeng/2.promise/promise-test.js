@@ -9,20 +9,29 @@
 const Promise = require('./Promise2');
 
 
-new Promise(function(resolve, reject) {
+const promise = new Promise(function(resolve, reject) {
   setTimeout(function() {
     resolve(198273);
   }, 10);
   // resolve(1989);
 }).then(res => {
   console.log('----0000 --- ', res);
-  throw new Error('error test 999');
+  return new Promise((resolve) => {
+    resolve(
+      new Promise((resolve) => {
+        resolve(22222);
+      })
+    )
+  });
+  // throw new Error('error test 999');
 }, err => {
   console.log('error9: ', err);
   return 100;
 })
-.then(res => {
+
+promise.then(res => {
   console.log('res--00: ', res)
+  return promise;
 }, err => {
   console.log(222, err);
 })
