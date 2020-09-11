@@ -1,10 +1,12 @@
+const Promise = require("./2.promise/Promise2");
+
 /**
  * @description 类型判断
  * @param {*} type
  * @returns
  */
-function isType (type) {
-  return function(val) {
+function isType(type) {
+  return function (val) {
     return Object.prototype.toString.call(val) === `[object ${type}]`;
   };
 };
@@ -17,8 +19,11 @@ function isType (type) {
  */
 function curring(fn) {
   let resArgs = [];
+
   function handleCurr(...args) {
-    if (args.length===0) { return fn.apply(this, resArgs) };
+    if (args.length === 0) {
+      return fn.apply(this, resArgs)
+    };
     const res = args.reduce((pre, now) => pre.concat(now), []);
     resArgs = resArgs.concat(res);
     return handleCurr;
@@ -42,7 +47,9 @@ console.log(add2(1)(3, 6)(5)()); // 15
  */
 function after(callBack, delay) {
   return function fn() {
-    if (--delay===0) { return callBack() };
+    if (--delay === 0) {
+      return callBack()
+    };
     return fn;
   };
 };
@@ -64,9 +71,9 @@ fn();
  *
  * AOP 函数切片思想
  * */
-Function.prototype.before = function(callBack) {
+Function.prototype.before = function (callBack) {
   const that = this;
-  return function(...args) {
+  return function (...args) {
     const res = callBack();
     return that(...args, res);
   }
