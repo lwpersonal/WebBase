@@ -7,4 +7,6 @@
   algorithm | 算法练习
   components | 组件封装练习
   sourceCode | 源码解析笔记
+  dataStructure | 数组结构
+  DesignPatterns ｜ 设计模式
   demo | 自己实现的一些好玩的小 demo
