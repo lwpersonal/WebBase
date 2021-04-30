@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +13,17 @@
     }
   </style>
 </head>
+
 <body>
   <div class="box" onClick="console.log('test')"></div>
   <ul class="long-list-wrap">
 
   </ul>
-  
+
   <!-- <script src="./Fiber.js"></script> -->
   <script>
-    ;(function(doc, win) {
+    ;
+    (function (doc, win) {
       const listArr = [...Array(9000000).keys()];
       const listWrap = doc.querySelector('.long-list-wrap');
       const box = doc.querySelector('.box');
@@ -29,6 +32,7 @@
         const res = await fn();
         console.warn('fn - start: ');
       }
+
       function createLiEl(text) {
         const li = doc.createElement('li');
         li.textContent = text;
@@ -68,7 +72,9 @@
       // 比较完美的解决方案，几乎无延时的可以响应用户操作
       function append5() {
         function fn() {
-          if (listArr.length<=0) { return }
+          if (listArr.length <= 0) {
+            return
+          }
           setTimeout(() => {
             const fragment = doc.createDocumentFragment();
             listArr.splice(0, 100).forEach(async (item) => {
@@ -82,21 +88,23 @@
       };
 
       let key = 0
+
       function add() {
-        if (key<100000000) {
+        if (key < 100000000) {
           key++;
-          setTimeout(function() {
+          setTimeout(function () {
             listWrap.append(createLiEl(key));
             add();
           }, 0);
-        } else { return }
+        } else {
+          return
+        }
       }
       // setTimeout(add, 0);
       // consoleTime(append5);
-      
+
       console.log(111);
     }(document, window));
-
   </script>
 </body>
 </html>

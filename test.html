@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+    debugger
+
+    function foo() {
+      debugger
+      var a1 = "极客时间"
+      let a2 = 1
+      const test2 = 2
+      const obj1 = {
+        a: 10
+      }
+      let obj2 = {
+        a: {
+          age: 11
+        }
+      }
+      var a4 = {
+        getName: function () {
+          console.log(a2, obj2)
+          return a1
+        },
+        setName: function (a3) {
+          a1 = a3
+        }
+      }
+      return a4
+    }
+    var bar = foo()
+    bar.setName("极客邦")
+    bar.getName()
+    console.log(bar.getName())
+  </script>
+</body>
+
+</html>
