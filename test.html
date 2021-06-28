@@ -6,16 +6,25 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://j1.58cdn.com.cn/beidou-sdk/browser/bundle.min.js"></script>
 </head>
 
 <body>
 
 
   <script>
-    debugger
+    console.log(Beidou);
+    // debugger
+    Beidou.init({
+      projectId: 195,
+      isProd: true,
+      isDebug: true
+    });
+
+    Beidou.captureException(new Error('wjw - captureException 调用测试'))
 
     function foo() {
-      debugger
+      // debugger
       var a1 = "极客时间"
       let a2 = 1
       const test2 = 2
@@ -33,15 +42,16 @@
           return a1
         },
         setName: function (a3) {
+          // debugger
           a1 = a3
         }
       }
       return a4
     }
-    var bar = foo()
-    bar.setName("极客邦")
-    bar.getName()
-    console.log(bar.getName())
+    // var bar = foo()
+    // bar.setName("极客邦")
+    // bar.getName()
+    // console.log(bar.getName())
   </script>
 </body>
 

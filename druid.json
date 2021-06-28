@@ -1,0 +1,238 @@
+{
+  "result": {
+    "attributes": [{
+        "name": "Field",
+        "type": "STRING"
+      },
+      {
+        "name": "Type",
+        "type": "STRING"
+      },
+      {
+        "name": "Null",
+        "type": "STRING"
+      },
+      {
+        "name": "Key",
+        "type": "NUMBER"
+      },
+      {
+        "name": "Default",
+        "type": "NUMBER"
+      },
+      {
+        "name": "Extra",
+        "type": "NUMBER"
+      }
+    ],
+    "data": [{
+        "Field": "__time",
+        "Type": "TIME",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "apiStatus",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "apiUrl",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "apn",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "appName",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "appVersion",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "brand",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "content",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "device",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "nop",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "os",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "osv",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "performanceIndex",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "performanceIndexTimeSection",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "pid",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "projectId",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "pv",
+        "Type": "NUMBER",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "resourceCategory",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "resourceStatus",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "resourceUrl",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "sdkName",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "sdkVersion",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "sumTime",
+        "Type": "NUMBER",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "type",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "url",
+        "Type": "STRING",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "uv",
+        "Type": "NULL",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ]
+  }
+}
