@@ -34,55 +34,10 @@
 
   <div style="z-index: 1;float: left;width: 200px;height: 100px;background: pink;"></div>
   <div style="z-index: 0;float: left;width: 200px;height: 100px;background: blue;margin: 10px 0 0 -20px;"></div>
-  <!-- <script src="./index.js"></script> -->
+  <script src="./index.js"></script>
   <script>
     ;
     (function () {
-      class List {
-        constructor(value, next) {
-          this.value = value;
-          this.next = next;
-        }
-      }
-
-      function pushStr(str, head) {
-        const n = str.length;
-        let current = head;
-        for (let i = 0; i < n; i++) {
-          current.value = str[i];
-          current.next = i < n -1 ? new List(null, null) : null;
-          current = current.next;
-        }
-      }
-      const headList = new List(null, null)
-      pushStr('abcdedcba', headList);
-      // console.log(headList)
-
-      function checkStr(head) {
-        let current1 = head;
-        let current2 = head;
-        let str1 = '';
-        let str2 = '';
-        while (current2) {
-          str1 += current1.value;
-          current2 = current2?.next?.next;
-          if (current2) {
-            current1 = current1.next;
-          }
-        }
-        while (current1.next) {
-          str2 = current1.next.value + str2;
-          current1 = current1.next;
-        }
-        console.log(str1, str2);
-        if (str1.length === str2.length) {
-          return str1 === str2;
-        } else if (str1.length > str2.length) {
-          return str1.slice(0, -1) === str2;
-        }
-      }
-
-      console.log(checkStr(headList));
 
     }());
   </script>
