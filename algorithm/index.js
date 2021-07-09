@@ -105,6 +105,56 @@
   // console.log(px_fn_mp([47, 4, 6, 7, 2, 4, 1, 3, 4]))
   // console.log(px_fn_mp([1, 4, 6, 7, 2, 4, 1, 3, 4]))
   // console.log(px_fn_mp([6, 4, 1]))
+  function px_fn_mp2(arr) {
+    const len = arr.length;
+    let posit = 0;
+    let flag = true;
+    for (let i = 0; i < len && flag; i++) {
+      flag = true;
+      for (let j = 0; j < len - posit - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+          const val = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = val;
+          flag = true;
+        }
+      }
+      posit++;
+    }
+    return arr;
+  }
+  // console.log(px_fn_mp2([1, 4, 10, 5, 3, 99, 5, 3, 45, 6]));
+  // console.log(px_fn_mp2([47, 4, 6, 7, 2, 4, 1, 3, 4]))
+  // console.log(px_fn_mp2([1, 4, 6, 7, 2, 4, 1, 3, 4]))
+  // console.log(px_fn_mp2([6, 4, 1]))
+
+  // 插入排序
+  function px_fn_cr(arr) {
+    if (arr.length <= 1) {
+      return arr;
+    }
+    for (let i = 1; i < arr.length; i++) {
+      let j = i - 1;
+      const val = arr[i];
+      for (; j >= 0; j--) {
+        if (arr[j] > val) {
+          arr[j + 1] = arr[j];
+        } else {
+          break;
+        }
+        arr[j] = val;
+      }
+    }
+    return arr;
+  }
+  // console.log(px_fn_cr([10, 1, 4, 5, 3, 99, 5, 3, 45, 6]));
+  // console.log(px_fn_cr([47, 4, 6, 7, 2, 4, 1, 3, 4]))
+  // console.log(px_fn_cr([1, 4, 6, 7, 2, 4, 1, 3, 4]))
+  // console.log(px_fn_cr([6, 4, 1]))
+
+  // 选择排序
+  function px_fn_xz(arr) {}
+  // console.log(px_fn_xz([47, 10, 4, 6, 7, 2, 4, 1, 3, 4]));
 
   // 简单选择排序
   const px_fn_jdxz = arr => {
@@ -170,7 +220,6 @@
     );
   };
   // console.log(px_fn_k([4, 5, 7, 84, 1, 4, 5, 6]))
-
 
   // TAG 链表
   class List {
@@ -251,8 +300,3 @@
   }
   // console.log(reverseList2(headList));
 })(document, window);
-
-// 1
-// 1 1 1
-// 2 2 1
-// 3 4 2
