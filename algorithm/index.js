@@ -153,8 +153,33 @@
   // console.log(px_fn_cr([6, 4, 1]))
 
   // 选择排序
-  function px_fn_xz(arr) {}
+  function px_fn_xz(arr) {
+    const len = arr.length;
+    if (len <= 1) {
+      return arr;
+    }
+    let min;
+    let minPosit;
+    for (let i = 0; i < len; i++) {
+      min = arr[i];
+      minPosit = i;
+      for (let j = i + 1; j < len; j++) {
+        if (arr[j] < min) {
+          min = arr[j];
+          minPosit = j;
+        }
+      }
+      const val = arr[i];
+      arr[i] = arr[minPosit];
+      arr[minPosit] = val;
+    }
+    return arr;
+  }
   // console.log(px_fn_xz([47, 10, 4, 6, 7, 2, 4, 1, 3, 4]));
+  // console.log(px_fn_xz([10, 1, 4, 5, 3, 99, 5, 3, 45, 6]));
+  // console.log(px_fn_xz([47, 4, 6, 7, 2, 4, 1, 3, 4]))
+  // console.log(px_fn_xz([1, 4, 6, 7, 2, 4, 1, 3, 4]))
+  // console.log(px_fn_xz([6, 4, 1]))
 
   // 简单选择排序
   const px_fn_jdxz = arr => {
@@ -219,7 +244,73 @@
       arr.slice(Math.floor(arr.length / 2))
     );
   };
-  // console.log(px_fn_k([4, 5, 7, 84, 1, 4, 5, 6]))
+  function px_fn_k2(arr) {
+    if (arr.length < 2) {
+      return arr;
+    }
+    const posit = Math.floor(arr.length / 2);
+    const val = arr.splice(posit, 1)[0];
+    const left = [];
+    const right = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] < val) {
+        left.push(arr[i]);
+      } else {
+        right.push(arr[i]);
+      }
+    }
+    return [...px_fn_k2(left), val, ...px_fn_k2(right)]
+  }
+  console.log(px_fn_k2([4, 5, 7, 84, 1, 4, 5, 6, 10, 14]));
+  console.log(px_fn_k2([47, 10, 4, 6, 7, 2, 4, 1, 3, 4]));
+  console.log(px_fn_k2([10, 1, 4, 5, 3, 99, 5, 3, 45, 6]));
+  console.log(px_fn_k2([47, 4, 6, 7, 2, 4, 1, 3, 4]));
+  console.log(px_fn_k2([1, 4, 6, 7, 2, 4, 1, 3, 4]));
+  console.log(px_fn_k2([6, 4, 1]));
+
+  // 归并排序
+  function px_fn_gb(source) {
+    function merge(arr1, arr2) {
+      if (!arr1 || !arr1.length) {
+        return arr2;
+      }
+      if (!arr2 || !arr2.length) {
+        return arr1;
+      }
+      let p1 = 0;
+      let p2 = 0;
+      const res = [];
+      while (p1 < arr1.length || p2 < arr2.length) {
+        if (arr1[p1] <= arr2[p2] || !arr2[p2]) {
+          res.push(arr1[p1]);
+          p1++;
+        } else if (arr1[p1] > arr2[p2] || !arr1[p1]) {
+          res.push(arr2[p2]);
+          p2++;
+        }
+      }
+      return res;
+    }
+
+    function fn(arr) {
+      const len = arr.length;
+      if (len < 2) {
+        return arr;
+      }
+      const middle = Math.floor(len / 2);
+
+      return merge(fn(arr.slice(0, middle)), fn(arr.slice(middle)));
+    }
+
+    return fn(source);
+  }
+
+  // console.log(px_fn_gb([4, 5, 7, 84, 1, 4, 5, 6, 10, 14]));
+  // console.log(px_fn_gb([47, 10, 4, 6, 7, 2, 4, 1, 3, 4]));
+  // console.log(px_fn_gb([10, 1, 4, 5, 3, 99, 5, 3, 45, 6]));
+  // console.log(px_fn_gb([47, 4, 6, 7, 2, 4, 1, 3, 4]));
+  // console.log(px_fn_gb([1, 4, 6, 7, 2, 4, 1, 3, 4]));
+  // console.log(px_fn_gb([6, 4, 1]));
 
   // TAG 链表
   class List {
