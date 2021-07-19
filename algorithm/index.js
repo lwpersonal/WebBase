@@ -259,14 +259,14 @@
         right.push(arr[i]);
       }
     }
-    return [...px_fn_k2(left), val, ...px_fn_k2(right)]
+    return [...px_fn_k2(left), val, ...px_fn_k2(right)];
   }
-  console.log(px_fn_k2([4, 5, 7, 84, 1, 4, 5, 6, 10, 14]));
-  console.log(px_fn_k2([47, 10, 4, 6, 7, 2, 4, 1, 3, 4]));
-  console.log(px_fn_k2([10, 1, 4, 5, 3, 99, 5, 3, 45, 6]));
-  console.log(px_fn_k2([47, 4, 6, 7, 2, 4, 1, 3, 4]));
-  console.log(px_fn_k2([1, 4, 6, 7, 2, 4, 1, 3, 4]));
-  console.log(px_fn_k2([6, 4, 1]));
+  // console.log(px_fn_k2([4, 5, 7, 84, 1, 4, 5, 6, 10, 14]));
+  // console.log(px_fn_k2([47, 10, 4, 6, 7, 2, 4, 1, 3, 4]));
+  // console.log(px_fn_k2([10, 1, 4, 5, 3, 99, 5, 3, 45, 6]));
+  // console.log(px_fn_k2([47, 4, 6, 7, 2, 4, 1, 3, 4]));
+  // console.log(px_fn_k2([1, 4, 6, 7, 2, 4, 1, 3, 4]));
+  // console.log(px_fn_k2([6, 4, 1]));
 
   // 归并排序
   function px_fn_gb(source) {
@@ -390,4 +390,52 @@
     return resList;
   }
   // console.log(reverseList2(headList));
+
+  // 二分查找
+  function findItem(source, val) {
+    function fn(arr, start, val) {
+      if (arr.length <= 1) {
+        return arr[0] === val ? start : -1;
+      }
+      const posit = Math.floor(arr.length / 2);
+      const p1 = fn(arr.slice(0, posit), start, val);
+      const p2 = fn(arr.slice(posit), start + posit, val);
+      if (p1 !== -1) {
+        return p1;
+      }
+      if (p2 !== -1) {
+        return p2;
+      }
+      return -1;
+    }
+    return fn(source, 0, val);
+  }
+  // console.log(findItem([1, 2, 3, 4, 5, 9, 11, 40], 9));
+  // console.log(findItem([1, 3, 5, 9, 10, 14, 30, 99, 102], 9));
+
+  // 二分查找，重复元素第一个
+  function ef_find_cf(source, val) {
+    function fn(start, arr, val) {
+      if (arr.length <= 1) {
+        if (arr[0] === val && (start === 0 || source[start - 1] !== val)) {
+          return start;
+        } else {
+          return -1;
+        }
+      }
+      const middle = Math.floor(arr.length / 2);
+      const left = fn(start, arr.slice(0, middle), val);
+      const right = fn(start + middle, arr.slice(middle), val);
+      if (left !== -1) {
+        return left;
+      }
+      if (right !== -1) {
+        return right;
+      }
+      return -1;
+    }
+
+    return fn(0, source, val);
+  }
+  console.log(ef_find_cf([7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 10], 8));
 })(document, window);
