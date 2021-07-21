@@ -393,13 +393,16 @@
 
   // 二分查找
   function findItem(source, val) {
-    function fn(arr, start, val) {
+    function fn(start, arr) {
       if (arr.length <= 1) {
-        return arr[0] === val ? start : -1;
+        if (arr[0] === val) {
+          return start;
+        }
+        return -1;
       }
-      const posit = Math.floor(arr.length / 2);
-      const p1 = fn(arr.slice(0, posit), start, val);
-      const p2 = fn(arr.slice(posit), start + posit, val);
+      const middle = Math.floor(arr.length / 2);
+      const p1 = fn(start, arr.slice(0, middle));
+      const p2 = fn(start + middle, arr.slice(middle));
       if (p1 !== -1) {
         return p1;
       }
@@ -408,16 +411,45 @@
       }
       return -1;
     }
-    return fn(source, 0, val);
+
+    return fn(0, source);
   }
-  // console.log(findItem([1, 2, 3, 4, 5, 9, 11, 40], 9));
-  // console.log(findItem([1, 3, 5, 9, 10, 14, 30, 99, 102], 9));
+  console.log(findItem([1, 2, 3, 4, 5, 9, 11, 40], 9));
+  console.log(findItem([1, 3, 5, 9, 10, 14, 30, 99, 102], 9));
 
   // 二分查找，重复元素第一个
   function ef_find_cf(source, val) {
-    function fn(start, arr, val) {
+    function fn(start, arr) {
       if (arr.length <= 1) {
         if (arr[0] === val && (start === 0 || source[start - 1] !== val)) {
+          return start;
+        }
+        return -1;
+      }
+      const middle = Math.floor(arr.length / 2);
+      const p1 = fn(start, arr.slice(0, middle));
+      const p2 = fn(start + middle, arr.slice(middle));
+      if (p1 !== -1) {
+        return p1;
+      }
+      if (p2 !== -1) {
+        return p2;
+      }
+      return -1;
+    }
+
+    return fn(0, source);
+  }
+  console.log(ef_find_cf([7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 10], 7));
+
+  // 二分查找，重复元素最后一个
+  function ef_find_cf_end(source, val) {
+    function fn(start, arr, val) {
+      if (arr.length <= 1) {
+        if (
+          arr[0] === val &&
+          (start === source.length - 1 || source[start + 1] !== val)
+        ) {
           return start;
         } else {
           return -1;
@@ -437,5 +469,5 @@
 
     return fn(0, source, val);
   }
-  console.log(ef_find_cf([7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 10], 8));
+  // console.log(1, ef_find_cf_end([7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 10], 7));
 })(document, window);
